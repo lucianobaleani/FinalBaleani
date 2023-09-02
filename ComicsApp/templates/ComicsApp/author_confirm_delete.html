@@ -1,0 +1,16 @@
+{% extends "ComicsApp/author_list.html" %}
+
+{% load static %}
+
+{% block title %}Eliminacion de Autor {% endblock %}
+
+{% block content %}
+<h1>Autores</h1>
+
+<form method="post">{% csrf_token %}
+    ¿Desea eliminar a este Autor? "{{ object }}"?
+    <input type="submit" value="SI">
+    <a href="{% url 'author_list' %}" style="background-color: red;" class="btn btn-default">CANCELAR</a>
+
+</form>
+{% endblock %}
