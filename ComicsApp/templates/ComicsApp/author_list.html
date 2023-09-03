@@ -1,14 +1,17 @@
 {% extends "ComicsApp/home.html" %}
-
 {% load static %}
-
-{% block title %} Busque a Autores preferidos {% endblock %}
-
+<head>
+    {% load static %}
+    {% block icon %}
+        <link rel="icon" type="image/x-icon" href="static/assets/author_icon.png" />
+    {% endblock %}
+    {% block title %} Busque a sus Autores preferidos {% endblock %}
+</head>
 {% block content %}
 <h2>LISTADO DE AUTORES</h2>
 <ul>
 
-    {% for author in object_list %}
+    
     <table  style="border: 2px solid black">
         <thead style="border: 2px solid black">
             <tr style="border: 2px solid black">
@@ -19,8 +22,9 @@
                 <th style="text-align: center;background-color:red ;border: 2px solid black">Eliminar</th>
             </tr>
         </thead>
-       
+    {% for author in object_list %}
         <tbody style="border: 2px solid black">
+            
             <tr style="border: 2px solid black">
                 <td style="text-align: center; border: 2px solid black"> 
                     {{ author.name }}
@@ -43,10 +47,11 @@
                 </td>
             </tr>
         </tbody>
+    
+    {% endfor %}
     </table>
     
     
-    {% endfor %}
     <br>
     <br>
     <a class="btn btn-primary"  href="{% url 'author_creation'  %}">Ingresar nuevo Autor</a>

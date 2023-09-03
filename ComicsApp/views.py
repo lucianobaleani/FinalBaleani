@@ -28,16 +28,53 @@ class AuthorDelete(DeleteView):
     success_url = reverse_lazy("author_list")
 
 
-class AuthorUpdate(UpdateView):  # vista usada para EDITAR
+class AuthorUpdate(UpdateView):
     model = Author
     success_url = reverse_lazy("author_list")
     fields = ["name", "role", "currently_active"]
 
 
-# class EditorialList(ListView):
-#     model = Editorial
+# VISTAS DE EDITORIAL
+class EditorialList(ListView):
+    model = Editorial
+    template_name = "ComicsApp/editorial_list.html"
 
 
-# class ComicList(ListView):
-#     model = Comic
-#     template_name = "ComicsApp/"
+class EditorialCreation(CreateView):
+    model = Editorial
+    success_url = reverse_lazy("editorial_list")
+    fields = ["name", "country", "state"]
+
+
+class EditorialDelete(DeleteView):
+    model = Editorial
+    success_url = reverse_lazy("editorial_list")
+
+
+class EditorialUpdate(UpdateView):
+    model = Editorial
+    success_url = reverse_lazy("editorial_list")
+    fields = ["name", "country", "state"]
+
+
+# VISTAS DE COMIC
+class ComicList(ListView):
+    model = Comic
+    template_name = "ComicsApp/comic_list.html"
+
+
+class ComicCreation(CreateView):
+    model = Comic
+    success_url = reverse_lazy("comic_list")
+    fields = ["name", "editorial", "author", "published_year"]
+
+
+class ComicDelete(DeleteView):
+    model = Comic
+    success_url = reverse_lazy("comic_list")
+
+
+class ComicUpdate(UpdateView):
+    model = Comic
+    success_url = reverse_lazy("comic_list")
+    fields = ["editorial", "name", "author", "published_year"]

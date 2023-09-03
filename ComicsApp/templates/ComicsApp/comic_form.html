@@ -1,0 +1,16 @@
+{% extends "ComicsApp/home.html" %}
+
+{% load static %}
+
+{% block title %}<h1>Creación de Comics!</h1> {% endblock %}
+
+{% block content %}
+<h1>Ingrese los Datos del Comic a Agregar</h1>
+
+<form method="post">{% csrf_token %}
+    {{ form.as_p}}
+    <input type="submit" value="GUARDAR">
+    <a href="{% url 'comic_list' %}" style="background-color: red;" class="btn btn-default">CANCELAR</a>
+
+</form>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends "ComicsApp/author_list.html" %}
+
+{% load static %}
+
+{% block title %}Eliminacion de Editorial {% endblock %}
+
+{% block content %}
+<h1>Editoriales</h1>
+
+<form method="post">{% csrf_token %}
+    ¿Desea eliminar esta Editorial? "{{ object }}"?
+    <input type="submit" value="SI">
+    <a href="{% url 'editorial_list' %}" style="background-color: red;" class="btn btn-default">CANCELAR</a>
+
+</form>
+{% endblock %}

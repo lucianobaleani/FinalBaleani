@@ -23,8 +23,8 @@ class Comic(models.Model):
     def __str__(self):
         return f"{self.name} {self.editorial} {self.author} {self.published_year}"
 
-    editorial = models.ForeignKey(Editorial, on_delete=models.CASCADE)
     name = models.CharField(max_length=70)
+    editorial = models.ForeignKey(Editorial, on_delete=models.CASCADE)
     author = models.ForeignKey(Author, on_delete=models.CASCADE)
     published_year = models.IntegerField()
     # autoconclusive = models.BooleanField()
