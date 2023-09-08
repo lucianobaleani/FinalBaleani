@@ -1,0 +1,13 @@
+{% extends "ComicsApp/home.html" %}
+
+{% load static %}
+
+{% block title %}<h1>DATOS DEL COMIC!</h1> {% endblock %}
+
+{% block content %}
+<h1>DATOS DEL ESTUDIANTE</h1>
+
+<p>NOMBRE : <i>{{comic.name}}</i></p>
+<p>APELLIDO : <i>{{comic.editorial}}</i></p>
+<p>EMAIL : <i>{{comic.published_year}}</i></p>
+{% endblock %}

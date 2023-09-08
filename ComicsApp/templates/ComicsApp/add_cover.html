@@ -1,0 +1,28 @@
+{% extends "ComicsApp/index.html" %}
+
+
+{% block title %}
+<h1 class="mb-5">AGREGANDO PORTADA DE: {{ comic.name }} </h1>
+{% endblock %}
+
+{% block content %}
+
+<h3>{{ message }}</h3>
+
+<form action="{% url 'add_cover'  %}" method="POST" enctype="multipart/form-data"> {% csrf_token %}
+
+    <table>
+
+        {{ form.as_table }}
+
+    </table>
+
+    <input type="submit" value="AGREGUE LA PORTADA">
+
+
+    </form>
+
+
+
+
+{% endblock %}

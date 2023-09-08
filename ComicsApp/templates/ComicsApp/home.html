@@ -5,11 +5,8 @@
 {% block title %}Trabajo Final de Python <br> Comisión 43870 <br> Luciano Baleani {% endblock %}
 
 {% block content %}
-    <h1>BIENVENIDOS</h1>
+    <h1>BIENVENID@ {{ user.username}}</h1>
 
-    <h3>{{ mensaje }}</h3>
+    <h3>{{ message }}</h3>
+    
 {% endblock %}
-
-<!-- {% block botonprofes %}
-"btn btn-danger"
-{% endblock %} -->

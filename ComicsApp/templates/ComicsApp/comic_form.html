@@ -1,4 +1,4 @@
-{% extends "ComicsApp/home.html" %}
+{% extends "ComicsApp/index.html" %}
 
 {% load static %}
 
@@ -11,6 +11,5 @@
     {{ form.as_p}}
     <input type="submit" value="GUARDAR">
     <a href="{% url 'comic_list' %}" style="background-color: red;" class="btn btn-default">CANCELAR</a>
-
 </form>
 {% endblock %}

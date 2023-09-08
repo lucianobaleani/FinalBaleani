@@ -1,0 +1,24 @@
+{% extends "ComicsApp/index.html" %}
+
+{% load static %}
+
+{% block title %}EDITANDO USUARIO: {{ user }} {% endblock %}
+
+{% block content %}
+<h3>{{ message }}</h3>
+
+<form action="{% url 'edit_profile'  %}" method="POST"> {% csrf_token %}
+
+    <table>
+    
+        {{ form.as_table }}
+    
+    </table>
+    
+    <input type="submit" value="Guardar Cambios">
+    
+    
+    </form>
+
+
+{% endblock %}
