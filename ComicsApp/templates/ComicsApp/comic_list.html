@@ -1,53 +1,38 @@
-{% extends "ComicsApp/index.html" %}
-<head>
-    {% load static %}
+{% extends 'ComicsApp/index.html' %}
 
-    {% block title %} Busque sus Comics preferidos {% endblock %}
-</head>
+
+{% load static %}
+<img src="{{ avatar }}" alt="avatar" style="width:50px;height:50px; text-decoration-color:black"/>  
 {% block content %}
-<h2>LISTADO DE Comics</h2>
-<ul>
 
+<header class="masthead static-top " style=" background-image: url('static/assets/img/fondo_comics.jpg')">
+    <head >
     
-    <table  style="border: 2px solid black">
-        <thead style="border: 2px solid black">
-            <tr style="border: 2px solid black">
-                <th style="text-align: center;background-color:rebeccapurple ;border: 2px solid black">Nombre</th>
-                <th style="text-align: center;background-color:rebeccapurple ;border: 2px solid black">Editorial</th>
-                <th style="text-align: center;background-color:rebeccapurple ;border: 2px solid black">Autor</th>
-                <th style="text-align: center;background-color:rebeccapurple ;border: 2px solid black">Año de Publicación</th>
-                <th style="text-align: center; color:aliceblue; background-color:blue ;border: 2px solid black">Modificar</th>
-                <th style="text-align: center;background-color:red ;border: 2px solid black">Eliminar</th>
-            </tr>
-        </thead>
-    {% for comic in object_list %}
-        <tbody style="border: 2px solid black">
-            <tr style="border: 2px solid black">
-                <td style="text-align: center; border: 2px solid black"> 
-                    {{ comic.name }}
-                </td>
-                <td style="text-align: center;border: 2px solid black">
-                    {{ comic.editorial.name }}
-                </td>
-                <td style="text-align: center;border: 2px solid black">
-                    {{ comic.author.name}}
-                </td>
-                <td style="text-align: center;border: 2px solid black">
-                    {{ comic.published_year}}
-                </td>
-                <td>
-                    <a class="btn btn-success" style="text-align: center; color:aliceblue; background-color:blue" href="{% url 'comic_update' comic.id %}">Modificar</a>
-                </td>
-                <td style="text-align: center;border: 2px solid black">
-                    <a class="btn btn-danger" href="{% url 'comic_delete' comic.id %}">Borrar</a>
-                </td>
-            </tr>
-        </tbody>
+            {% block title %} <h1 class=""  > Busque sus Comics preferidos  </h1>{% endblock %}
     
-    {% endfor %}
-    </table>
-    
-    
+    </head>
+
+</header>
+<h2>LISTADO DE COMICS</h2>
+<div class="container text-center">
+    <div class="row">
+        {% for comic in object_list %}
+        <div class="col-sm-6 align-items-center">
+            <div class="card-body">
+                {{ comic.name }}
+                <a href="{% url 'comic_detail_list' comic.id %}"><i class="bi bi-eye"></i></a>
+               {% if user.username == 'admin' %}
+                    <a href="{% url 'comic_update' comic.id %}"><i class="bi bi-pencil-fill"></i></a>
+                    <a href="{% url 'comic_delete' comic.id %}"><i class="bi bi-trash text-danger"></i></a>
+                {% endif %}
+                <p><img src="{{comic.cover_image.url}}"  style="width: 300px; height: 425px" alt="Cover"></p>
+
+            </div>
+        </div>
+        {% endfor %}
+    </div>       
+</div>
+
     <br>
     <br>
     <a class="btn btn-primary"  href="{% url 'comic_creation'  %}">Ingresar nuevo Comic</a>
@@ -55,6 +40,5 @@
     
 
 
-</ul>
 <h3>{{ message }}</h3>
 {% endblock %}

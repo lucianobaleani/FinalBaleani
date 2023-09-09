@@ -4,5 +4,4 @@ from .models import *
 # Register your models here.
 
 admin.site.register(Avatar)
-admin.site.register(Cover)
 admin.site.register(Comic)

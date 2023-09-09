@@ -1,11 +1,11 @@
 from django.shortcuts import render
-from .models import Comic, Avatar, Cover
+from .models import Comic, Avatar
 from .forms import *
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth import login, authenticate
-
+from django.contrib.auth.views import LoginView
 from django.contrib.auth.mixins import LoginRequiredMixin  # VISTA DE CLASE
 from django.contrib.auth.decorators import login_required  # VISTA FUNCION
 from django.urls import reverse_lazy
@@ -16,40 +16,14 @@ def home(request):
     return render(request, "ComicsApp/home.html", {"avatar": get_avatar(request)})
 
 
-# LOGIN
-def login_request(request):
-    if request.method == "POST":
-        form = AuthenticationForm(request, data=request.POST)
-        if form.is_valid():
-            info = form.cleaned_data
-            user = info["username"]
-            password = info["password"]
-            user = authenticate(username=user, password=password)
-            if user is not None:
-                login(request, user)
-                return render(
-                    request,
-                    "ComicsApp/home.html",
-                    {
-                        "message": f"Usuario {user} logueado correctamente",
-                        "avatar": get_avatar(request),
-                    },
-                )
-            else:
-                return render(
-                    request,
-                    "Comics/login.html",
-                    {"form": form, "message": "Datos incorrectos"},
-                )
-        else:
-            return render(
-                request,
-                "ComicsApp/login.html",
-                {"form": form, "mensaje": "Datos incorrectos"},
-            )
-    else:
-        form = AuthenticationForm()
-        return render(request, "ComicsApp/login.html", {"form": form})
+class LoginRequest(LoginView):
+    template_name = "ComicsApp/login.html"
+    fields = "__all__"
+    redirect_autheticated_user = True
+    success_url = reverse_lazy("home")
+
+    def get_success_url(self):
+        return reverse_lazy("home")
 
 
 def register(request):
@@ -195,7 +169,14 @@ class ComicDetailView(DetailView, LoginRequiredMixin):
 class ComicCreation(CreateView, LoginRequiredMixin):
     model = Comic
     success_url = reverse_lazy("comic_list")
-    fields = ["user", "name", "editorial", "author", "published_year"]
+    fields = [
+        "user",
+        "cover_image",
+        "name",
+        "editorial",
+        "author",
+        "published_year",
+    ]
 
 
 class ComicDelete(DeleteView, LoginRequiredMixin):
@@ -206,17 +187,30 @@ class ComicDelete(DeleteView, LoginRequiredMixin):
 class ComicUpdate(UpdateView, LoginRequiredMixin):
     model = Comic
     success_url = reverse_lazy("comic_list")
-    fields = ["editorial", "name", "author", "published_year"]
+    fields = ["cover_image", "editorial", "name", "author", "published_year"]
 
 
 @login_required
-def add_cover(request):
-    covers = Cover.objects.filter(user=request.user.id)
-
+def get_cover(request):
+    covers = Comic.objects.filter(comic=request.comic.id)
     if len(covers) != 0:
-        return covers[0].imagen.url
+        return covers[1].image.url
     else:
         return "/media/covers/undefined.png"
+
+
+# COMENTARIOS
+
+
+class CommentPage(LoginRequiredMixin, CreateView):
+    model = ChatBox
+    form_class = ChatBoxForm
+    template_name = "ComicsApp/comments.html"
+    success_url = reverse_lazy("home")
+
+    def form_valid(self, form):
+        form.instance.comment_id = self.kwargs["pk"]
+        return super(CommentPage, self).form_valid(form)
 
 
 # ACERCA DE MI

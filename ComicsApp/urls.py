@@ -10,7 +10,7 @@ urlpatterns = [
     # INICIO
     path("", home, name="home"),
     # LOGIN
-    path("login/", login_request, name="login"),
+    path("login/", LoginRequest.as_view(), name="login"),
     path("register/", register, name="register"),
     path("editar_perfil/", edit_profile, name="edit_profile"),
     path("agregar_avatar/", add_avatar, name="add_avatar"),
@@ -20,8 +20,8 @@ urlpatterns = [
     path("comics/crear/", ComicCreation.as_view(), name="comic_creation"),
     path("comics/eliminar/<pk>", ComicDelete.as_view(), name="comic_delete"),
     path("comics/editar/<pk>", ComicUpdate.as_view(), name="comic_update"),
-    path("comics/list", ComicDetailView.as_view(), name="comic_detail_list"),
-    path("agregarPortada/", add_cover, name="add_cover"),
+    path("comics/list/<pk>", ComicDetailView.as_view(), name="comic_detail_list"),
+    path("comic/list/<pk>", CommentPage.as_view(), name="comment"),
     # ACERCA DE MI
     path("acerca_de_mi/", about_me, name="about_me"),
 ]

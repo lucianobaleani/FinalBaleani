@@ -1,13 +1,40 @@
-{% extends "ComicsApp/home.html" %}
-
-{% load static %}
-
-{% block title %}<h1>DATOS DEL COMIC!</h1> {% endblock %}
+{% extends 'ComicsApp/index.html' %}
 
 {% block content %}
-<h1>DATOS DEL ESTUDIANTE</h1>
 
-<p>NOMBRE : <i>{{comic.name}}</i></p>
-<p>APELLIDO : <i>{{comic.editorial}}</i></p>
-<p>EMAIL : <i>{{comic.published_year}}</i></p>
+<br>
+<br>
+
+<div class="container">
+
+
+<p><h4>{{comic.name}}</h4></p>
+{% if comic.cover_image %}
+    Portada:
+    <p><img src="{{comic.cover_image.url}}"  style="width: 300px; height: 425px;" alt="Cover"></p>
+{% endif %}
+<p>Autor: {{comic.author}}</p>
+<p>Editorial: {{comic.editorial}}</p>
+<p>Año: {{comic.published_year}}</p>
+
+</div>
+<br>
+<div class="container">
+    <h4>Comentarios...</h4>
+    <br>
+    <div class="container">
+    {% if not comic.comment.all %}
+        No se han realizado comentarios sobre este comic
+    {% else %}
+        {% for comment in comic.comment.all %}
+        <p><strong>{{comment.name}}</strong></p>
+        <p>{{comment.message}}</p>
+        <p><small>{{comment.comment_date}}</small></p>
+        <hr>
+        {% endfor %}
+    {% endif %}
+    <a href="{% url 'comment' comic.pk %}">Agrega un Comentario <br/<> Para Añadir mas Información sobre el Comic!!!!</a>
+    </div>
+</div>
+<br>
 {% endblock %}

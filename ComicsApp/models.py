@@ -4,18 +4,14 @@ from django.contrib.auth.models import User
 
 class Comic(models.Model):
     def __str__(self):
-        return f"{self.name} {self.editorial} {self.author} {self.published_year}"
+        return f"{self.cover_image}{self.name}"
 
+    cover_image = models.ImageField(upload_to="covers")
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     name = models.CharField(max_length=70)
     editorial = models.CharField(max_length=70)
     author = models.CharField(max_length=70)
     published_year = models.IntegerField()
-
-
-class Cover(models.Model):
-    cover_image = models.ImageField(upload_to="covers", default="undefined.png")
-    comic = models.ForeignKey(Comic, on_delete=models.CASCADE, null=True, blank=True)
 
 
 class ChatBox(models.Model):

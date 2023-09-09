@@ -1,14 +1,22 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from ComicsApp.models import Comic, ChatBox, Avatar, Cover
+from ComicsApp.models import Comic, ChatBox, Avatar
 
 
 class ComicForm(forms.Form):
     class Meta:
         model = Comic
-        fields = ("user", "name", "editorial", "author", "published_year")
+        fields = (
+            "user",
+            "cover_image",
+            "name",
+            "editorial",
+            "author",
+            "published_year",
+        )
 
+    cover_image = forms.ImageField(label="Cover")
     name = forms.CharField(max_length=70)
     editorial = forms.CharField(max_length=70)
     author = forms.CharField(max_length=70)
@@ -18,15 +26,11 @@ class ComicForm(forms.Form):
             attrs={
                 "class": "form-control",
                 "value": "",
-                "id": "user_id",
+                "id": "user.id",
                 "type": "hidden",
             }
         )
     }
-
-
-class CoverForm(forms.Form):
-    cover = forms.ImageField(label="Cover")
 
 
 class UserRegisterForm(UserCreationForm):
@@ -59,3 +63,13 @@ class UserEditForm(UserCreationForm):
 
 class AvatarForm(forms.Form):
     image = forms.ImageField(label="Avatar")
+
+
+class ChatBoxForm(forms.ModelForm):
+    class Meta:
+        model = ChatBox
+        fields = ("name", "message")
+        widgets = {
+            "name": forms.TextInput(attrs={"class": "form-control"}),
+            "message": forms.Textarea(attrs={"class": "form-control"}),
+        }
