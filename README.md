@@ -5,12 +5,11 @@
 - Proyecto Final Coder House - Python
 - Comisión: 43870
 - Alumno: Luciano Baleani
-- Proyecto
-- Biblioteca de Comics
+- Proyecto: Biblioteca de Comics
 
 
 - Descripción del Proyecto
-- Página Web destinada a usuarios que deseen conocer más del mundo de Comics.
+  - Página Web destinada a usuarios que deseen conocer más del mundo de Comics.
 
 - Para poder ver los comics en la página página web, el usuario tendrá que iniciar sesión o registrarse en caso de no contar con usuario o contraseña. En ambas casos, una vez logueado, el usuario será redirigido al inicio de la página web.
 
